@@ -1,0 +1,237 @@
+@import url('https://api.fontshare.com/v2/css?f[]=array@400,500,700,800&f[]=switzer@300,400,500,600,700&display=swap');
+
+/* =============================================
+   DESIGN TOKENS — SOBER INDUSTRIAL
+   ============================================= */
+:root {
+  /* Core Palette */
+  --bg-void:       #080a0d;
+  --bg-base:       #0d1017;
+  --bg-surface:    #12161f;
+  --bg-elevated:   #181d28;
+  --bg-card:       #1c2130;
+
+  --border-subtle: rgba(255, 255, 255, 0.06);
+  --border-dim:    rgba(255, 255, 255, 0.10);
+  --border-bright: rgba(255, 255, 255, 0.18);
+
+  --text-primary:   #eef0f5;
+  --text-secondary: #8a90a0;
+  --text-tertiary:  #565e72;
+  --text-accent:    #c8d0e8;
+
+  --titanium:   #7a8496;
+  --titanium-l: #b0b8c8;
+
+  /* Status Colors */
+  --status-ok:       #2db87d;
+  --status-ok-glow:  rgba(45, 184, 125, 0.25);
+  --status-warn:     #f5a623;
+  --status-warn-glow:rgba(245, 166, 35, 0.25);
+  --status-err:      #e8445a;
+  --status-err-glow: rgba(232, 68, 90, 0.25);
+
+  /* Active Line (dynamic, overridden by JS) */
+  --line-color:      #e8445a;
+  --line-color-dim:  rgba(232, 68, 90, 0.12);
+  --line-color-glow: rgba(232, 68, 90, 0.35);
+  --line-color-text: #e8445a;
+
+  /* Liquid Glass */
+  --glass-bg:       rgba(255, 255, 255, 0.04);
+  --glass-bg-hover: rgba(255, 255, 255, 0.07);
+  --glass-border:   rgba(255, 255, 255, 0.10);
+  --glass-specular: rgba(255, 255, 255, 0.15);
+  --glass-blur:     blur(20px) saturate(180%);
+
+  /* Radii */
+  --r-sm: 4px;
+  --r-md: 8px;
+  --r-lg: 12px;
+  --r-xl: 16px;
+
+  /* Transitions */
+  --transition-fast:   150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow:   500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* =============================================
+   RESET & BASE
+   ============================================= */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-void);
+  color: var(--text-primary);
+  font-family: 'Switzer', -apple-system, sans-serif;
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Subtle noise texture overlay */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.4;
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Array', sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+a { color: inherit; text-decoration: none; }
+img { display: block; max-width: 100%; }
+button { cursor: pointer; border: none; background: none; font: inherit; }
+
+/* =============================================
+   LIQUID GLASS UTILITIES
+   ============================================= */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow:
+    inset 0 1px 0 var(--glass-specular),
+    0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+.glass:hover {
+  background: var(--glass-bg-hover);
+  border-color: var(--border-bright);
+  box-shadow:
+    inset 0 1px 0 var(--glass-specular),
+    0 8px 32px rgba(0, 0, 0, 0.5),
+    0 0 0 1px var(--border-dim);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  border: 1px solid var(--border-bright);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.2),
+    0 8px 40px rgba(0, 0, 0, 0.6);
+}
+
+/* Line-color glow utility */
+.line-glow {
+  box-shadow: 0 0 24px var(--line-color-glow), 0 0 2px var(--line-color);
+}
+
+/* =============================================
+   SCROLLBAR
+   ============================================= */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: var(--bg-base); }
+::-webkit-scrollbar-thumb { background: var(--border-dim); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--border-bright); }
+
+/* =============================================
+   GLOBAL ANIMATIONS
+   ============================================= */
+@keyframes fade-down {
+  from { opacity: 0; transform: translateY(-16px) translateX(-50%); }
+  to   { opacity: 1; transform: translateY(0) translateX(-50%); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes line-color-pulse {
+  0%, 100% { box-shadow: 0 0 12px var(--line-color-glow); }
+  50%       { box-shadow: 0 0 28px var(--line-color-glow), 0 0 4px var(--line-color); }
+}
+
+/* =============================================
+   SKELETON LOADER
+   ============================================= */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 25%,
+    var(--bg-card) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: var(--r-md);
+}
+
+/* =============================================
+   LAYOUT CONTAINERS
+   ============================================= */
+.container {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section-pad {
+  padding: 48px 0 80px;
+}
+
+/* =============================================
+   FORM ELEMENTS
+   ============================================= */
+input, textarea, select {
+  background: var(--bg-elevated);
+  border: 1px solid var(--border-dim);
+  border-radius: var(--r-md);
+  color: var(--text-primary);
+  font-family: 'Switzer', sans-serif;
+  font-size: 14px;
+  padding: 10px 14px;
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  width: 100%;
+  outline: none;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--line-color);
+  box-shadow: 0 0 0 3px rgba(200, 208, 232, 0.08);
+}
+
+input::placeholder, textarea::placeholder { color: var(--text-tertiary); }
+
+select option { background: var(--bg-elevated); }
