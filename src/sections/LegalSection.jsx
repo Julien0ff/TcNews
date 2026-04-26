@@ -45,7 +45,8 @@ const LegalSection = ({ type, onBack }) => {
         },
         {
           h: "Email",
-          p: "contact@tcnews.net"
+          p: "contact@tcnews.xyz"
+
         }
       ]
     }
@@ -114,7 +115,8 @@ const LegalSection = ({ type, onBack }) => {
         {type === 'contact' && (
           <div style={{ marginTop: 60, textAlign: 'center' }}>
             <div style={{ fontSize: 40, marginBottom: 20 }}>📬</div>
-            <a href="mailto:contact@tcnews.net" style={{
+            <a href="mailto:contact@tcnews.xyz" style={{
+
               display: 'inline-block',
               padding: '16px 40px',
               borderRadius: 'var(--r-md)',
