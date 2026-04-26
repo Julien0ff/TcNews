@@ -1,13 +1,13 @@
-const GROQ_API_KEY = import.meta.env.VITE_GROQ_API_KEY;
-const API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GOOGLE_AI_API_KEY = import.meta.env.VITE_GOOGLE_AI_API_KEY;
+const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${GOOGLE_AI_API_KEY}`;
 
 /**
- * Generates an article suggestion based on transport news trends.
+ * Generates an article suggestion based on transport news trends using Google Gemini.
  * @returns {Promise<{ title: string, excerpt: string, category: string, image: string }|null>}
  */
 export const generateArticleSuggestion = async () => {
-  if (!GROQ_API_KEY) {
-    console.error('[Groq] VITE_GROQ_API_KEY is missing in .env');
+  if (!GOOGLE_AI_API_KEY) {
+    console.error('[Gemini] VITE_GOOGLE_AI_API_KEY is missing in .env');
     return null;
   }
 
@@ -26,21 +26,26 @@ export const generateArticleSuggestion = async () => {
     "images": []
   }
   
-  IMPORTANT: Ne pas inventer de faits absurdes. Baser l'article sur des tendances ou des projets réels connus jusqu'à ta date de connaissance, en les présentant comme d'actualité pour ce ${currentDate}.
-  Langue: Français.`;
+  IMPORTANT: Ne pas inventer de faits absurdes. Baser l'article sur des tendances ou des projets réels connus.
+  Langue: Français.
+  RETOURNE UNIQUEMENT LE JSON SANS CODE BLOCKS.`;
 
   try {
     const response = await fetch(API_URL, {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${GROQ_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'llama-3.3-70b-versatile',
-        messages: [{ role: 'user', content: prompt }],
-        temperature: 0.7,
-        response_format: { type: 'json_object' }
+        contents: [{
+          parts: [{ text: prompt }]
+        }],
+        generationConfig: {
+          temperature: 0.7,
+          topK: 1,
+          topP: 1,
+          maxOutputTokens: 2048,
+        }
       }),
     });
 
@@ -50,7 +55,12 @@ export const generateArticleSuggestion = async () => {
     }
 
     const data = await response.json();
-    const content = JSON.parse(data.choices[0].message.content);
+    let text = data.candidates[0].content.parts[0].text;
+    
+    // Remove markdown code blocks if present
+    text = text.replace(/```json/g, '').replace(/```/g, '').trim();
+    
+    const content = JSON.parse(text);
 
     return {
       title: content.title || '',
@@ -61,7 +71,8 @@ export const generateArticleSuggestion = async () => {
       read_time: content.read_time || '3 min'
     };
   } catch (error) {
-    console.error('[Groq] Error generating article:', error);
+    console.error('[Gemini] Error generating article:', error);
     return null;
   }
 };
+

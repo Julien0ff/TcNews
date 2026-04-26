@@ -235,3 +235,25 @@ input:focus, textarea:focus, select:focus {
 input::placeholder, textarea::placeholder { color: var(--text-tertiary); }
 
 select option { background: var(--bg-elevated); }
+/* =============================================
+   RESPONSIVE UTILITIES
+   ============================================= */
+@media (max-width: 1024px) {
+  .container { padding: 0 20px; }
+}
+
+@media (max-width: 768px) {
+  body { font-size: 14px; }
+  .section-pad { padding: 32px 0 60px; }
+  
+  h1 { font-size: 32px !important; }
+  h2 { font-size: 24px !important; }
+  h3 { font-size: 20px !important; }
+}
+
+@media (max-width: 480px) {
+  .container { padding: 0 16px; }
+  .section-pad { padding: 24px 0 40px; }
+  
+  h1 { font-size: 28px !important; }
+}

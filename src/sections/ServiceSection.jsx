@@ -101,8 +101,8 @@ const ServiceSection = () => {
     <section style={{ padding: '100px 0 80px' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
 
-        <header style={{ marginBottom: 40, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
-          <div style={{ flex: 1, minWidth: 280 }}>
+        <header className="service-header" style={{ marginBottom: 40, display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: 20 }}>
+          <div className="service-header-left" style={{ flex: 1, minWidth: 280 }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
               <div style={{
                 width: 3, height: 24,
@@ -115,7 +115,7 @@ const ServiceSection = () => {
                 Service
               </span>
             </div>
-            <h1 style={{
+            <h1 className="service-title" style={{
               fontFamily: "'Array', sans-serif",
               fontSize: 'clamp(28px, 4vw, 42px)',
               fontWeight: 700,
@@ -131,7 +131,7 @@ const ServiceSection = () => {
           </div>
 
           {/* Last update */}
-          <div style={{ 
+          <div className="service-update-badge" style={{ 
             display: 'flex', 
             alignItems: 'center', 
             gap: 10, 
@@ -151,7 +151,7 @@ const ServiceSection = () => {
               animation: 'pulse-dot 2s ease infinite',
             }} />
             {loading ? 'Chargement…' : `Mis à jour à ${formatTime(lastUpdated)}`}
-            <span style={{ marginLeft: 4, padding: '2px 6px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em' }}>RÉSEAU IDFM</span>
+            <span className="source-label" style={{ marginLeft: 4, padding: '2px 6px', borderRadius: 4, background: 'rgba(255,255,255,0.06)', fontSize: 10, fontWeight: 700, letterSpacing: '0.05em' }}>RÉSEAU IDFM</span>
           </div>
         </header>
 
@@ -163,15 +163,20 @@ const ServiceSection = () => {
         }}>
           <style>{`
             @media (max-width: 1100px) {
-              .service-layout {
-                grid-template-columns: 1fr !important;
-              }
-              .detail-panel {
-                position: relative !important;
-                top: 0 !important;
-              }
+              .service-layout { grid-template-columns: 1fr !important; }
+              .detail-panel { position: relative !important; top: 0 !important; order: -1; }
+            }
+            @media (max-width: 768px) {
+              .service-header { flex-direction: column !important; align-items: flex-start !important; gap: 24px !important; }
+              .service-update-badge { width: 100%; justify-content: space-between; }
+              .service-title { font-size: 32px !important; }
+            }
+            @media (max-width: 480px) {
+              .line-grid { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)) !important; }
+              .source-label { display: none; }
             }
           `}</style>
+
 
           {/* LEFT: Line grid */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
@@ -180,7 +185,7 @@ const ServiceSection = () => {
               <h2 style={{ fontFamily: "'Array', sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-tertiary)', marginBottom: 12 }}>
                 RER
               </h2>
-              <div style={{ 
+              <div className="line-grid" style={{ 
                 display: 'grid', 
                 gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', 
                 gap: 12,
@@ -205,7 +210,7 @@ const ServiceSection = () => {
               <h2 style={{ fontFamily: "'Array', sans-serif", fontSize: 13, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: 'var(--text-tertiary)', marginBottom: 12 }}>
                 Métro
               </h2>
-              <div style={{ 
+              <div className="line-grid" style={{ 
                 display: 'grid', 
                 gridTemplateColumns: 'repeat(auto-fill, minmax(130px, 1fr))', 
                 gap: 12,

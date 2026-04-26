@@ -196,7 +196,7 @@ const AdminSection = ({ user, onLogout }) => {
     <section style={{ padding: '100px 0 80px' }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px' }}>
         
-        <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48 }}>
+        <header className="admin-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 48 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 8 }}>
               <div style={{ width: 3, height: 24, background: 'var(--status-err)', borderRadius: 2 }} />
@@ -209,7 +209,7 @@ const AdminSection = ({ user, onLogout }) => {
             </h1>
           </div>
 
-          <div style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
+          <div className="admin-user-info" style={{ display: 'flex', alignItems: 'center', gap: 20 }}>
             {user && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '6px 14px', borderRadius: 100, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)' }}>
                 {user.avatar ? (
@@ -245,15 +245,20 @@ const AdminSection = ({ user, onLogout }) => {
         </header>
 
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 400px', gap: 32, alignItems: 'start' }}>
+        <div className="admin-grid" style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 400px', gap: 32, alignItems: 'start' }}>
           
           <div className="admin-list-container">
             <style>{`
               @media (max-width: 1024px) {
                 .admin-grid { grid-template-columns: 1fr !important; }
-                .admin-form-sticky { position: relative !important; top: 0 !important; }
+                .admin-form-sticky { position: relative !important; top: 0 !important; order: -1; }
+              }
+              @media (max-width: 768px) {
+                .admin-header { flex-direction: column !important; align-items: flex-start !important; gap: 24px !important; }
+                .admin-user-info { width: 100%; justify-content: space-between; }
               }
             `}</style>
+
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {articles.length === 0 ? (

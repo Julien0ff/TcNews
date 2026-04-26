@@ -39,6 +39,7 @@ const Dock = ({ active, onNavigate, showAdmin = false }) => {
 
   return (
     <nav
+      className="floating-dock"
       style={{
         position: 'fixed',
         top: 24,
@@ -56,10 +57,26 @@ const Dock = ({ active, onNavigate, showAdmin = false }) => {
         border: '1px solid rgba(255,255,255,0.12)',
         boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.18), 0 8px 48px rgba(0,0,0,0.7), 0 2px 8px rgba(0,0,0,0.5)',
         animation: 'fade-down 0.5s cubic-bezier(0.4,0,0.2,1) both',
+        transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
       }}
     >
+      <style>{`
+        @media (max-width: 600px) {
+          .floating-dock {
+            top: auto !important;
+            bottom: 24px !important;
+            padding: 8px !important;
+            border-radius: 24px !important;
+            width: fit-content;
+            animation: fade-up 0.5s cubic-bezier(0.4,0,0.2,1) both !important;
+          }
+          .nav-label { display: none !important; }
+          .nav-btn { padding: 12px !important; border-radius: 16px !important; }
+          .dock-logo { display: none !important; }
+        }
+      `}</style>
       {/* Logo */}
-      <div style={{ padding: '6px 16px 6px 8px', borderRight: '1px solid rgba(255,255,255,0.08)', marginRight: 8, display: 'flex', alignItems: 'center' }}>
+      <div className="dock-logo" style={{ padding: '6px 16px 6px 8px', borderRight: '1px solid rgba(255,255,255,0.08)', marginRight: 8, display: 'flex', alignItems: 'center' }}>
         <Logo variant="icon" style={{ height: 28, width: 28 }} />
       </div>
 
@@ -70,6 +87,7 @@ const Dock = ({ active, onNavigate, showAdmin = false }) => {
           <button
             key={item.id}
             onClick={() => onNavigate(item.id)}
+            className="nav-btn"
             style={{
               display: 'flex',
               alignItems: 'center',
@@ -118,7 +136,7 @@ const Dock = ({ active, onNavigate, showAdmin = false }) => {
             }}>
               {item.icon}
             </span>
-            <span style={{ display: 'flex', alignItems: 'center' }}>{item.label}</span>
+            <span className="nav-label" style={{ display: 'flex', alignItems: 'center' }}>{item.label}</span>
 
             {/* Active indicator dot */}
             {isActive && (
@@ -141,6 +159,7 @@ const Dock = ({ active, onNavigate, showAdmin = false }) => {
     </nav>
   );
 };
+
 
 
 export default Dock;

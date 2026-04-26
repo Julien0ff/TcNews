@@ -50,7 +50,9 @@ const LandingSection = ({ onEnter }) => {
       }} />
 
       {/* Hero Content */}
-      <div style={{
+      <div 
+        className="landing-hero"
+        style={{
         position: 'relative',
         zIndex: 2,
         display: 'flex',
@@ -64,7 +66,9 @@ const LandingSection = ({ onEnter }) => {
         transition: 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)'
       }}>
         {/* Logo */}
-        <div style={{
+        <div 
+          className="landing-logo"
+          style={{
           display: 'flex',
           flexDirection: 'column',
           alignItems: 'center',
@@ -79,7 +83,9 @@ const LandingSection = ({ onEnter }) => {
               filter: 'drop-shadow(0 0 30px rgba(255,255,255,0.1)) brightness(1.2)'
             }}
           />
-          <p style={{
+          <p 
+            className="landing-tagline"
+            style={{
             fontSize: 14,
             fontWeight: 600,
             letterSpacing: '0.6em',
@@ -91,17 +97,18 @@ const LandingSection = ({ onEnter }) => {
           </p>
         </div>
 
+
         {/* CTA */}
         <button
           onClick={handleEnter}
           className="landing-cta"
           style={{
-            padding: '20px 48px',
+            padding: '16px 36px',
             borderRadius: 40,
             background: 'transparent',
             border: '1px solid rgba(255,255,255,0.15)',
             color: 'var(--text-primary)',
-            fontSize: 16,
+            fontSize: 15,
             fontWeight: 700,
             cursor: 'pointer',
             transition: 'all 400ms cubic-bezier(0.4, 0, 0.2, 1)',
@@ -109,14 +116,14 @@ const LandingSection = ({ onEnter }) => {
             WebkitBackdropFilter: 'blur(10px)',
             display: 'flex',
             alignItems: 'center',
-            gap: 12,
+            gap: 10,
             position: 'relative',
             overflow: 'hidden'
           }}
         >
           <span style={{ position: 'relative', zIndex: 1 }}>Accéder aux news</span>
           <span style={{
-            fontSize: 20,
+            fontSize: 18,
             transition: 'transform 400ms',
             display: 'inline-block'
           }} className="arrow">→</span>
@@ -127,7 +134,7 @@ const LandingSection = ({ onEnter }) => {
               color: #000;
               border-color: #fff;
               transform: translateY(-4px);
-              box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 0 100px rgba(255,255,255,0.1);
+              box-shadow: 0 20px 40px rgba(0,0,0,0.4);
             }
             .landing-cta:hover .arrow {
               transform: translateX(6px);
@@ -139,26 +146,37 @@ const LandingSection = ({ onEnter }) => {
               from { opacity: 0; transform: translateY(40px); }
               to { opacity: 1; transform: translateY(0); }
             }
+            @media (max-width: 768px) {
+              .landing-hero { gap: 40px !important; }
+              .landing-logo { gap: 12px !important; }
+              .landing-tagline { font-size: 10px !important; letter-spacing: 0.4em !important; }
+              .landing-footer-tag { left: 50% !important; transform: translateX(-50%) !important; bottom: 20px !important; }
+            }
           `}</style>
         </button>
       </div>
 
       {/* Decorative Bottom Tag */}
-      <div style={{
-        position: 'absolute',
-        bottom: 40,
-        left: 40,
-        fontSize: 10,
-        fontWeight: 700,
-        letterSpacing: '0.2em',
-        color: 'rgba(255,255,255,0.15)',
-        textTransform: 'uppercase',
-        zIndex: 2
-      }}>
+      <div 
+        className="landing-footer-tag"
+        style={{
+          position: 'absolute',
+          bottom: 40,
+          left: 40,
+          fontSize: 10,
+          fontWeight: 700,
+          letterSpacing: '0.2em',
+          color: 'rgba(255,255,255,0.15)',
+          textTransform: 'uppercase',
+          zIndex: 2,
+          transition: 'all 0.4s ease'
+        }}
+      >
         Edition Mondiale 2026
       </div>
     </section>
   );
 };
+
 
 export default LandingSection;

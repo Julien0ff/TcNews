@@ -61,7 +61,7 @@ const JournalSection = () => {
           </div>
         )}
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+        <div className="journal-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
           {heroArticle && (
             <ArticleCard
               key={heroArticle.id}
@@ -81,9 +81,18 @@ const JournalSection = () => {
             />
           ))}
         </div>
+        <style>{`
+          @media (max-width: 1024px) {
+            .journal-grid { grid-template-columns: repeat(2, 1fr) !important; }
+          }
+          @media (max-width: 768px) {
+            .journal-grid { grid-template-columns: 1fr !important; }
+          }
+        `}</style>
       </div>
     </section>
   );
 };
+
 
 export default JournalSection;
