@@ -18,8 +18,17 @@ const App = () => {
   const [isAdminAuthenticated, setIsAdminAuthenticated] = useState(false);
 
   useEffect(() => {
+    // Check if ?admin is in the URL
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('admin')) {
+      setActiveSection('admin');
+      // Clean up URL without refreshing
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+
     // Check current session
     supabase.auth.getSession().then(({ data: { session } }) => {
+
       handleAuthChange(session);
     });
 
