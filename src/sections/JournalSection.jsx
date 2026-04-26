@@ -42,10 +42,23 @@ const JournalSection = () => {
           <h1 style={{ fontFamily: "'Array', sans-serif", fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, letterSpacing: '-0.03em', color: 'var(--text-primary)', lineHeight: 1.1 }}>
             Actualités & Mobilités<br />Mondiales
           </h1>
-          {loading && <div style={{ marginTop: 20, color: 'var(--text-tertiary)', fontSize: 13 }}>Synchronisation Supabase...</div>}
         </header>
 
+        {loading && (
+          <div className="journal-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
+            <div className="skeleton" style={{ gridColumn: 'span 2', height: 400, borderRadius: 24 }} />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+              <div className="skeleton" style={{ height: 192, borderRadius: 24 }} />
+              <div className="skeleton" style={{ height: 192, borderRadius: 24 }} />
+            </div>
+            {[1, 2, 3].map(i => (
+              <div key={i} className="skeleton" style={{ height: 350, borderRadius: 24 }} />
+            ))}
+          </div>
+        )}
+
         {!loading && articles.length === 0 && (
+
           <div style={{
             padding: '100px 24px',
             textAlign: 'center',

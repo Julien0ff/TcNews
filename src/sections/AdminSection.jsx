@@ -79,10 +79,11 @@ const AdminSection = ({ user, onLogout }) => {
         read_time: '4 min',
         images: [random.image]
       });
-      alert("Note : Groq n'est pas configuré. Utilisation des suggestions locales.");
+      alert("Note : Le service d'IA (Gemini) n'a pas pu être contacté. Vérifiez vos clés d'API Vercel ou votre quota. Utilisation des suggestions locales.");
     }
     setLoadingAI(false);
   };
+
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -261,11 +262,16 @@ const AdminSection = ({ user, onLogout }) => {
 
             
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-              {articles.length === 0 ? (
+              {loading ? (
+                [1, 2, 3, 4].map(i => (
+                  <div key={i} className="skeleton" style={{ height: 72, borderRadius: 12 }} />
+                ))
+              ) : articles.length === 0 ? (
                 <div style={{ padding: '60px', textAlign: 'center', borderRadius: 16, background: 'rgba(255,255,255,0.02)', border: '1px dashed rgba(255,255,255,0.1)', color: 'var(--text-tertiary)' }}>
                   <p>Aucun article publié.</p>
                 </div>
               ) : (
+
                 articles.map((article) => (
                   <div key={article.id} style={{
                     display: 'flex',

@@ -41,20 +41,36 @@ export const parseSeverity = (lineReport) => {
   const disruptions = lineReport?.disruptions || [];
   if (disruptions.length === 0) return 'normal';
 
-  const hasStop = disruptions.some(d =>
-    d.severity?.effect === 'NO_SERVICE' ||
-    d.severity?.effect === 'SIGNIFICANT_DELAYS'
-  );
-  if (hasStop) return 'interrupted';
+  // Sort by severity if possible, or check for specific effects
+  const effects = disruptions.map(d => d.severity?.effect);
+  
+  if (effects.some(e => e === 'NO_SERVICE' || e === 'STOPPAGE')) {
+    return 'interrupted';
+  }
 
-  const hasWarn = disruptions.some(d =>
-    d.severity?.effect === 'REDUCED_SERVICE' ||
-    d.severity?.effect === 'DETOUR' ||
-    d.severity?.effect === 'ADDITIONAL_SERVICE' ||
-    d.severity?.effect === 'MODIFIED_SERVICE'
-  );
-  return hasWarn ? 'disrupted' : 'normal';
+  if (effects.some(e => 
+    e === 'SIGNIFICANT_DELAYS' || 
+    e === 'REDUCED_SERVICE' || 
+    e === 'DETOUR' || 
+    e === 'INTERRUPTED'
+  )) {
+    return 'disrupted';
+  }
+
+  if (effects.some(e => e === 'CONSTRUCTION' || e === 'MODIFIED_SERVICE')) {
+    return 'works';
+  }
+
+  // If there are ANY disruptions (even minor/info), consider it "info" or "minor"
+  // For simplicity, we'll map them to "disrupted" to alert the user
+  if (disruptions.length > 0) {
+    return 'disrupted';
+  }
+
+  return 'normal';
 };
+
+
 
 /** Récupère le rapport d'une ligne spécifique */
 export const fetchLineReport = async (lineId) => {

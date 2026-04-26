@@ -8,7 +8,7 @@ const ALL_LINE_KEYS = [
   ...Object.keys(RER_LINES),
 ];
 
-const REFRESH_INTERVAL = 90000; // 90 secondes
+const REFRESH_INTERVAL = 30000; // 30 secondes
 
 const ServiceSection = () => {
   const [selectedKey, setSelectedKey] = useState('A');

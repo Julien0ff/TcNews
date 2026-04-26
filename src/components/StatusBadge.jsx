@@ -22,7 +22,15 @@ const STATUS_CONFIG = {
     bg: 'rgba(232, 68, 90, 0.10)',
     border: 'rgba(232, 68, 90, 0.25)',
   },
+  works: {
+    label: 'Travaux',
+    color: '#3498db',
+    glowColor: 'rgba(52, 152, 219, 0.25)',
+    bg: 'rgba(52, 152, 219, 0.10)',
+    border: 'rgba(52, 152, 219, 0.25)',
+  },
 };
+
 
 const StatusBadge = ({ status = 'normal', size = 'md' }) => {
   const config = STATUS_CONFIG[status] || STATUS_CONFIG.normal;
