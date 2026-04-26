@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="https://vafkpivadhwyrmcoonjo.supabase.co/storage/v1/object/public/assets/logo text without bg.svg" alt="TCNews Logo" width="120" />
+  <img src="https://github.com/Julien0ff/TcNews/blob/1edef4ff1d3cb8223dec97bb6c796b56eba7665b/src/assets/logo%20text%20without%20bg.svg" alt="TCNews Logo" width="120" />
   <h1>🚆 TCNews — Transports Franciliens</h1>
   <p><i>Système d'information et de gestion du journal des transports en Île-de-France.</i></p>
 
